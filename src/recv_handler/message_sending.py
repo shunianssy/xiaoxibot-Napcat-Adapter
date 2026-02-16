@@ -13,7 +13,7 @@ MAX_MESSAGE_SIZE_MB = MAX_MESSAGE_SIZE_KB / 1024
 
 class MessageSending:
     """
-    负责把消息发送到麦麦
+    负责把消息发送到小熙
     """
 
     maibot_router: Router = None

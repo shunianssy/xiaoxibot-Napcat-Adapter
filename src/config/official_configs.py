@@ -91,10 +91,36 @@ class ForwardConfig(ConfigBase):
     """转发消息相关配置"""
     
     image_threshold: int = 3
-    """图片数量阈值：转发消息中图片数量超过此值时，使用占位符代替base64发送，避免麦麦VLM处理卡死"""
+    """图片数量阈值：转发消息中图片数量超过此值时，使用占位符代替base64发送，避免小熙VLM处理卡死"""
 
 
 @dataclass
 class DebugConfig(ConfigBase):
     level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
     """日志级别，默认为INFO"""
+
+
+@dataclass
+class EmailNotifyConfig(ConfigBase):
+    """邮件通知配置"""
+    
+    enable: bool = False
+    """是否启用邮件通知"""
+    
+    smtp_server: str = "smtp.163.com"
+    """SMTP服务器地址"""
+    
+    smtp_port: int = 25
+    """SMTP服务器端口"""
+    
+    smtp_user: str = ""
+    """SMTP用户名（邮箱账号）"""
+    
+    smtp_password: str = ""
+    """SMTP密码或授权码"""
+    
+    sender_email: str = ""
+    """发送方邮箱地址"""
+    
+    receiver_emails: list[str] = field(default_factory=list)
+    """接收方邮箱地址列表"""

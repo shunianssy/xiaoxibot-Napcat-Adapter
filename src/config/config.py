@@ -1,10 +1,9 @@
 import os
-from dataclasses import dataclass
 from datetime import datetime
 
 import tomlkit
 import shutil
-
+from dataclasses import dataclass, field
 from tomlkit import TOMLDocument
 from tomlkit.items import Table
 from ..logger import logger
@@ -14,6 +13,7 @@ from src.config.config_base import ConfigBase
 from src.config.official_configs import (
     ChatConfig,
     DebugConfig,
+    EmailNotifyConfig,
     ForwardConfig,
     MaiBotServerConfig,
     NapcatServerConfig,
@@ -120,6 +120,7 @@ class Config(ConfigBase):
     voice: VoiceConfig
     forward: ForwardConfig
     debug: DebugConfig
+    email_notify: EmailNotifyConfig = field(default_factory=EmailNotifyConfig)
 
 
 def load_config(config_path: str) -> Config:

@@ -42,7 +42,7 @@ class SendHandler:
             command, args_dict = SendCommandHandleClass.handle_command(seg_data, group_info)
         except Exception as e:
             logger.error(f"处理命令时出错: {str(e)}")
-            # 发送错误响应给麦麦
+            # 发送错误响应给小熙
             await self._send_command_response(
                 platform=message_info.platform,
                 command_name=command_name,
@@ -63,7 +63,7 @@ class SendHandler:
 
         response = await nc_message_sender.send_message_to_napcat(command, args_dict)
         
-        # 根据响应状态发送结果给麦麦
+        # 根据响应状态发送结果给小熙
         if response.get("status") == "ok":
             logger.info(f"命令 {command_name} 执行成功")
             await self._send_command_response(
@@ -90,7 +90,7 @@ class SendHandler:
         data: Optional[Dict] = None,
         error: Optional[str] = None
     ) -> None:
-        """发送命令响应回麦麦
+        """发送命令响应回小熙
         
         Args:
             platform: 平台标识

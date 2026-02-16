@@ -813,7 +813,7 @@ class MessageHandler:
         forward_header = Seg(type="text", data="========== 转发消息开始 ==========\n")
         forward_footer = Seg(type="text", data="========== 转发消息结束 ==========")
         
-        # 图片阈值：超过此数量使用占位符避免麦麦VLM处理卡死
+        # 图片阈值：超过此数量使用占位符避免小熙VLM处理卡死
         image_threshold = global_config.forward.image_threshold
         
         if image_count < image_threshold and image_count > 0:
