@@ -191,6 +191,16 @@ class NoticeHandler:
                 group_name=group_name,
             )
 
+        # 判断是否是机器人被戳（用于触发AI决策是否戳回去）
+        is_poke_self = False
+        if notice_type == NoticeType.notify:
+            sub_type_check = raw_message.get("sub_type")
+            if sub_type_check == NoticeType.Notify.poke:
+                self_id_check = raw_message.get("self_id")
+                target_id_check = raw_message.get("target_id")
+                if self_id_check == target_id_check:
+                    is_poke_self = True
+
         message_info: BaseMessageInfo = BaseMessageInfo(
             platform=global_config.maibot_server.platform_name,
             message_id="notice",
@@ -202,7 +212,10 @@ class NoticeHandler:
                 content_format=["text", "notify"],
                 accept_format=ACCEPT_FORMAT,
             ),
-            additional_config={"target_id": target_id},  # 在这里塞了一个target_id，方便mmc那边知道被戳的人是谁
+            additional_config={
+                "target_id": target_id,
+                "is_poke_self": is_poke_self,  # 标记是否是机器人被戳
+            },
         )
 
         message_base: MessageBase = MessageBase(
